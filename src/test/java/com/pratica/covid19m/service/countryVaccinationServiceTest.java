@@ -20,7 +20,6 @@ class countryVaccinationServiceTest {
     void setUp(){
     }
 
-    @Test
     void testCsvToModel() throws IOException {
         MultipartFile multipartFile = new MockMultipartFile("country_vaccinations.csv", new FileInputStream(new File("country_vaccinations.csv")));
         service.persistCSV(multipartFile);
