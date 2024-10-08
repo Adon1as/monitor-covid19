@@ -1,12 +1,22 @@
-FROM openjdk:11.0.28
-FROM maven:3.6.2
 
-# image layer
+FROM maven:3.8.7-eclipse-temurin-11 AS build
+
 WORKDIR /app
-ADD pom.xml /app
-RUN mvn verify clean --fail-never
-COPY . /app
-RUN mvn -v
-RUN mvn clean install -DskipTests
 
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+COPY src ./src
+
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:11-jre-alpine
+
+WORKDIR /app
+
+# Copiar o JAR gerado da fase de build
+COPY --from=build /app/target/*.jar ./app.jar
+
+EXPOSE 8081
+
+CMD ["java", "-jar", "app.jar"]
