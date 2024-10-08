@@ -31,6 +31,8 @@ services:
 
   front:
     image: covid19dashbord
+    build:
+      context: front/covid19dashbord
     container_name: front
     environment:
       - POSTGRES_USER=postgres
