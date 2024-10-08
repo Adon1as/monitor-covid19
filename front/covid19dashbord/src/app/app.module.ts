@@ -7,22 +7,26 @@ import { MainDashbordComponent } from './main-dashbord/main-dashbord.component';
 import * as PlotlyJS from 'plotly.js-dist-min';
 import { PlotlyModule } from 'angular-plotly.js';
 import {CommonModule} from '@angular/common';
-import { PlotGraphComponent } from './plot-graph/plot-graph.component';
+import { PlotGraphComponent } from './componentes/plot-graph/plot-graph.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BotaoUploadComponent } from './componentes/botao-upload/botao-upload.component';
+import {FormsModule} from "@angular/forms";
 
 PlotlyModule.plotlyjs = PlotlyJS;
 @NgModule({
   declarations: [
     AppComponent,
     MainDashbordComponent,
-    PlotGraphComponent
+    PlotGraphComponent,
+    BotaoUploadComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CommonModule,
     PlotlyModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

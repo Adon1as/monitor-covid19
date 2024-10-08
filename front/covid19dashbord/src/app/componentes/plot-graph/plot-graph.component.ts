@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { ApiService } from '../api.service';
+import { ApiService } from '../../api.service';
 import * as Plotly from 'plotly.js-dist-min';
 import {Data} from 'plotly.js-dist-min';
 @Component({
