@@ -1,14 +1,14 @@
-FROM ubuntu:latest
+FROM node:12-alpine AS build
 LABEL authors="adon1as"
 
-FROM node:12 AS build
-
 WORKDIR /usr/src/app
-
-COPY . /usr/src/app
-
-RUN npm install -g @angular/cli@11.1.2
-
+COPY package*.json ./
 RUN npm install
+COPY . .
+RUN npm run build --prod
+FROM nginx:alpine
+COPY --from=build /usr/src/app/dist/covid19dashbord/ /usr/share/nginx/html
+#COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+CMD ["nginx", "-g", "daemon off;"]

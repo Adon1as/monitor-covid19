@@ -1,24 +1,4 @@
-version: '3.8'
-
 services:
-  app:
-    image: 'covid19-monitor:latest'
-    build:
-      context: .
-    container_name: app
-    depends_on:
-      - db
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=abcd2024
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/covid19m
-      - SPRING_DATASOURCE_USERNAME=postgres
-      - SPRING_DATASOURCE_PASSWORD=abcd2024
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-
-    ports:
-      - 8081:8081
-
   db:
     image: postgres
     container_name: db
@@ -29,13 +9,31 @@ services:
     ports:
       - 5432:5432
 
-  front:
-    image: covid19dashbord
+  app:
+    image: c19api
     build:
-      context: front/covid19dashbord
-    container_name: front
+      context: .
+      dockerfile: Dockerfile
+    container_name: app
+    depends_on:
+      - db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=abcd2024
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/covid19m
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=abcd2024
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     ports:
-      - 4200:4200
+      - 8081:8081
+
+  front:
+    image: c19dashbord
+    build:
+      context: front/covid19dashbord
+      dockerfile: Dockerfile
+    container_name: front
+    depends_on:
+      - app
+    ports:
+      - 80:80

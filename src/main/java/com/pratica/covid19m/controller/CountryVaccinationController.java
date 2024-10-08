@@ -6,11 +6,14 @@ import com.pratica.covid19m.model.GraphDTO;
 import com.pratica.covid19m.service.CountryVaccinationService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Map;
+import java.util.HashMap;
 
 @CrossOrigin
 @RestController
@@ -29,9 +32,18 @@ public class CountryVaccinationController {
     }
 
     @PostMapping("/upload")
-    public void persistCSV(@RequestParam("file") MultipartFile file) {
+public ResponseEntity<Map<String, String>> persistCSV(@RequestParam("file") MultipartFile file) {
+    Map<String, String> response = new HashMap<>();
+    try {
         service.persistCSV(file);
+        response.put("message", "Arquivo CSV enviado e processado com sucesso.");
+        return ResponseEntity.ok(response);
+    } catch (Exception e) {
+        response.put("error", "Erro ao processar o arquivo CSV: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
+}
+
 
     @GetMapping("/vacPDay")
     public List<GraphDTO> vacPday(){ return service.vacPDay();}

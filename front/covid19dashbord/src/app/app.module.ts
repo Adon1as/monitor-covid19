@@ -11,6 +11,7 @@ import { PlotGraphComponent } from './componentes/plot-graph/plot-graph.componen
 import { HttpClientModule } from '@angular/common/http';
 import { BotaoUploadComponent } from './componentes/botao-upload/botao-upload.component';
 import {FormsModule} from "@angular/forms";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 PlotlyModule.plotlyjs = PlotlyJS;
 @NgModule({
@@ -28,7 +29,7 @@ PlotlyModule.plotlyjs = PlotlyJS;
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
