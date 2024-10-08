@@ -7,4 +7,4 @@ Execute o comando `docker-compose up --build` na raiz do projeto.
 
 ## URL principal
 http://localhost:4200/main-dashbord  
-NOTA: o upload esta sem feedback, demora alguns segudos para o CSV ser lido.
+NOTA: o upload esta sem feedback, demora alguns segudos para o CSV ser lido, depois é preciso reinicar a pagina manualmente.
