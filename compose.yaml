@@ -35,5 +35,7 @@ services:
     container_name: front
     depends_on:
       - app
+    environment:
+      - api_url=http://localhost:8081/countryVaccinatio
     ports:
       - 80:80

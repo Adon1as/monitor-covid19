@@ -10,5 +10,6 @@ FROM nginx:alpine
 COPY --from=build /usr/src/app/dist/covid19dashbord/ /usr/share/nginx/html
 #COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
+ENV api_url http://localhost:8081/countryVaccinatio
 
 CMD ["nginx", "-g", "daemon off;"]
