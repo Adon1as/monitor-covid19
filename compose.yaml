@@ -28,9 +28,9 @@ services:
       - 8081:8081
 
   front:
-    image: c19dashbord
+    image: c19dashboard
     build:
-      context: front/covid19dashbord
+      context: front/covid19dashboard
       dockerfile: Dockerfile
     container_name: front
     depends_on:
